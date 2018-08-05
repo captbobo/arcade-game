@@ -1,40 +1,57 @@
 'use strict'
 
-class Character = {
+class Character {
     constructor(xPos, yPos, speed, sprite){
-      this.xPos = 100;
-      this.yPos = 100;
+      this.xPos = 0;
+      this.yPos = 0;
       this.speed = speed;
-      this.sprite = sprite;
-
+      this.sprite = 'images/char-boy.png';
     }
 
     update(dt){
 
     }
     render(){
-      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+      ctx.drawImage(Resources.get(this.sprite), this.xPos, this.yPos);
     }
   };
 
-class Player extends Character = {
+class Player extends Character {
   constructor(sprite){
-    this.xPos = 100;
-    this.yPos = 100;
+    super();
+    this.xPos = 200;
+    this.yPos = 400;
+    this.sprite = sprite;
   }
   handleInput(){
 
   }
 }
 
-class Enemy extends Character = {
+class Enemy extends Character {
   constructor(){
-    super(speed, sprite)
+    super();
+    this.sprite = 'images/enemy-bug.png'
   }
 }
-const player = new Player('');
 
-console.log(player);
+const playerSprites = [
+  'images/char-boy.png',
+  'images/char-cat-girl.png',
+  'images/char-horn-girl.png',
+  'images/char-pink-girl.png',
+  'images/char-princess.girl.png'];
+
+const player = new Player(playerSprites[0]);
+
+
+let allEnemies = [],
+    numEnemies = 2;
+
+for(let i = 0; i <= numEnemies; i++) {
+  let enemy = new Enemy();
+  allEnemies.push(enemy);
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
