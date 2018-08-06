@@ -1,6 +1,8 @@
 /************************************
  ***********  ARCADE GAME ***********
  ************************************
+ *
+ * Built upon Front End Developer Nanodegree (FEND) Project 7
  * by Can Sürmeli
  *
 
@@ -9,14 +11,17 @@
 
 'use strict'
 
-/**************************
- ****** Player Class ******
- **************************
+/*****************************
+ ****** Character Class ******
+ *****************************
+ *
+ *  This is the main class which other entities in
+ *  the game extends from.
  */
 
 class Character {
     constructor(xPos = 0, yPos = 0, speed = 0, sprite){
-      this.speed = speed;
+      // this.speed = speed;
       this.sprite = 'images/char-boy.png';
     }
     update(dt){
@@ -40,7 +45,7 @@ class Player extends Character {
     this.sprite = sprite;
   }
   handleInput(key){
-    console.log(`x: ${this.xPos} and y:${this.yPos}`);
+    // console.log(`x: ${this.xPos} and y:${this.yPos}`);
     switch (key) {
       case 'left':
         if(0 < this.xPos){
@@ -72,14 +77,17 @@ class Player extends Character {
  */
 
 class Enemy extends Character {
-  constructor(speed, col){
-    super();
-    this.sprite = 'images/enemy-bug.png'
-    this.speed = 10;
-    this.
-    this.yPos = this.yPos * (col+1);
-    console.log(col);
-    console.log(yPos);
+  constructor(xPos, yPos, speed){
+    super(xPos = - 100, yPos = 60, speed);
+    this.sprite = 'images/enemy-bug.png';
+    this.speed = speed;
+    this.xPos = xPos;
+    this.yPos = yPos * getRandomInt(1, 4);
+
+    console.log(`x: ${this.xPos} and y:${this.yPos}`);
+    // console.log(`x: ${this.speed} and y:${this.col`);
+
+
   }
   update(dt){
     this.xPos += this.speed;
@@ -98,13 +106,18 @@ const playerSprites = [
    * TODO: Get input: let player choose character sprite
    * and then create player obj. with that input.
    */
+
 const player = new Player(playerSprites[0]);
 
 let allEnemies = [],
     numEnemies = 2;
 
 for(let i = 0; i <= numEnemies; i++) {
-  let enemy = new Enemy(10, i);
+  /*
+   * TODO: Randomize speed, xPos
+   */
+
+  let enemy = new Enemy(10, 10, 20, i);
   allEnemies.push(enemy);
 }
 
