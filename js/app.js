@@ -82,12 +82,12 @@ class Enemy extends Character {
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
     this.xPos = xPos;
+    /*
+     *  Each new instance of Enemy is created on a randomly selected lane
+     */
     this.yPos = yPos * getRandomInt(1, 4);
-
-    console.log(`x: ${this.xPos} and y:${this.yPos}`);
-    // console.log(`x: ${this.speed} and y:${this.col`);
-
-
+    
+    // console.log(`x: ${this.xPos} and y:${this.yPos}`);
   }
   update(dt){
     this.xPos += this.speed;
