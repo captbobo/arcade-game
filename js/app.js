@@ -20,11 +20,35 @@ class Player extends Character {
   constructor(sprite){
     super();
     this.xPos = 200;
-    this.yPos = 400;
+    this.yPos = 404;
     this.sprite = sprite;
   }
-  handleInput(){
-
+  handleInput(key){
+    console.log(`x: ${this.xPos} and y:${this.yPos}`);
+    switch (key) {
+      case 'left':
+        if(0 < this.xPos){
+          this.xPos -= 101;
+        }
+        break;
+      case 'up':
+        if(0 < this.yPos){
+          this.yPos -= 83;
+        }
+        break;
+      case 'right':
+        if(this.xPos < 400){
+          this.xPos += 101;
+        }
+        break;
+      case 'down':
+        if(this.yPos < 400){
+          this.yPos += 83;
+        }
+        break;
+    }
+    // this.update();
+    // this.render();
   }
 }
 
@@ -32,6 +56,7 @@ class Enemy extends Character {
   constructor(){
     super();
     this.sprite = 'images/enemy-bug.png'
+    
   }
 }
 
@@ -42,6 +67,10 @@ const playerSprites = [
   'images/char-pink-girl.png',
   'images/char-princess.girl.png'];
 
+  /*
+   * TODO: Get input: let player choose character sprite
+   * and then create player obj. with that input.
+   */
 const player = new Player(playerSprites[0]);
 
 
