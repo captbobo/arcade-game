@@ -20,9 +20,8 @@
  */
 
 class Character {
-    constructor(xPos = 0, yPos = 0, speed = 0, sprite){
-      // this.speed = speed;
-      this.sprite = 'images/char-boy.png';
+    constructor(){
+
     }
     update(dt){
 
@@ -77,18 +76,23 @@ class Player extends Character {
  */
 
 class Enemy extends Character {
-  constructor(xPos, yPos, speed){
-    super(xPos = - 100, yPos = 60, speed);
+  constructor(xPos= -50, yPos = -23, speed = 6){
+    super();
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
     this.xPos = xPos;
-    /*
-     *  Each new instance of Enemy is created on a randomly selected lane
-     */
-    this.yPos = yPos * getRandomInt(1, 4);
-    
-    // console.log(`x: ${this.xPos} and y:${this.yPos}`);
+    this.yPos = yPos;
   }
+
+  randomize(){
+            this.speed = this.speed * getRandomInt(1, 4);
+            this.xPos = this.xPos - getRandomInt(-10, -1) * 100;
+            this.yPos = this.yPos + getRandomInt(0, 3) * 83;
+            console.log(`x: ${this.xPos} and y:${this.yPos}`);
+
+          }
+
+
   update(dt){
     this.xPos += this.speed;
   }
@@ -107,17 +111,15 @@ const playerSprites = [
    * and then create player obj. with that input.
    */
 
+
 const player = new Player(playerSprites[0]);
 
 let allEnemies = [],
-    numEnemies = 2;
+    numEnemies = 5;
 
 for(let i = 0; i <= numEnemies; i++) {
-  /*
-   * TODO: Randomize speed, xPos
-   */
-
-  let enemy = new Enemy(10, 10, 20, i);
+  let enemy = new Enemy();
+  enemy.randomize();
   allEnemies.push(enemy);
 }
 
