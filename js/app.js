@@ -114,6 +114,13 @@ const playerSprites = [
 
 const player = new Player(playerSprites[0]);
 
+/*
+ * TODO:  Enemy generator algorithm
+ *        setTimeout(function(){
+ *
+ *        }, )
+ */
+
 let allEnemies = [],
     numEnemies = 5;
 
