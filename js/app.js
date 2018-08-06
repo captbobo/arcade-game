@@ -2,7 +2,8 @@
  ***********  ARCADE GAME ***********
  ************************************
  *
- * Built upon Front End Developer Nanodegree (FEND) Project 7
+ * Built on 
+ * Front End Developer Nanodegree (FEND) Project
  * by Can Sürmeli
  *
 
