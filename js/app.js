@@ -1,13 +1,24 @@
+/************************************
+ ***********  ARCADE GAME ***********
+ ************************************
+ * by Can Sürmeli
+ *
+
+*/
+
+
 'use strict'
 
+/**************************
+ ****** Player Class ******
+ **************************
+ */
+
 class Character {
-    constructor(xPos, yPos, speed, sprite){
-      this.xPos = 0;
-      this.yPos = 0;
+    constructor(xPos = 0, yPos = 0, speed = 0, sprite){
       this.speed = speed;
       this.sprite = 'images/char-boy.png';
     }
-
     update(dt){
 
     }
@@ -15,6 +26,11 @@ class Character {
       ctx.drawImage(Resources.get(this.sprite), this.xPos, this.yPos);
     }
   };
+
+/**************************
+ ****** Player Class ******
+ **************************
+ */
 
 class Player extends Character {
   constructor(sprite){
@@ -47,17 +63,28 @@ class Player extends Character {
         }
         break;
     }
-    // this.update();
-    // this.render();
   }
 }
 
+/*************************
+ ****** Enemy Class ******
+ *************************
+ */
+
 class Enemy extends Character {
-  constructor(){
+  constructor(speed, col){
     super();
     this.sprite = 'images/enemy-bug.png'
-    
+    this.speed = 10;
+    this.
+    this.yPos = this.yPos * (col+1);
+    console.log(col);
+    console.log(yPos);
   }
+  update(dt){
+    this.xPos += this.speed;
+  }
+
 }
 
 const playerSprites = [
@@ -73,20 +100,13 @@ const playerSprites = [
    */
 const player = new Player(playerSprites[0]);
 
-
 let allEnemies = [],
     numEnemies = 2;
 
 for(let i = 0; i <= numEnemies; i++) {
-  let enemy = new Enemy();
+  let enemy = new Enemy(10, i);
   allEnemies.push(enemy);
 }
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -100,3 +120,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + 1);
+}
