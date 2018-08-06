@@ -2,22 +2,45 @@
  ***********  ARCADE GAME ***********
  ************************************
  *
- * Built on 
+ * Built on ************************************
  * Front End Developer Nanodegree (FEND) Project
- * by Can Sürmeli
+ ******************************** by Can Sürmeli
  *
 
 */
 
-
 'use strict'
 
-/*****************************
- ****** Character Class ******
- *****************************
+var allEnemies = [];
+
+
+/**********************************
+ *********** Game Class ***********
+ **********************************
+ */
+
+class Game{
+  constructor(){
+    // this.time = 0;
+    // this.level = 'hard';
+  }
+
+  init() {
+    let bugger = setInterval(function(){
+      let enemy = new Enemy();
+      enemy.randomize();
+      allEnemies.push(enemy);
+    }, 500);
+  }
+
+}
+
+/***************************************
+ *********** Character Class ***********
+ ***************************************
  *
- *  This is the main class which other entities in
- *  the game extends from.
+ *  This is the main class which other
+ *  entities in the game extends from.
  */
 
 class Character {
@@ -31,10 +54,15 @@ class Character {
       ctx.drawImage(Resources.get(this.sprite), this.xPos, this.yPos);
     }
   };
+  /*
+  *************** END OF CLASS: Character ***************
+  */
 
-/**************************
- ****** Player Class ******
- **************************
+
+
+/************************************
+ *********** Player Class ***********
+ ************************************
  */
 
 class Player extends Character {
@@ -70,42 +98,66 @@ class Player extends Character {
     }
   }
 }
+/*
+*************** END OF CLASS: Player ***************
+*/
 
-/*************************
- ****** Enemy Class ******
- *************************
+
+/*
+ ***********************************
+ *********** Enemy Class ***********
+ ***********************************
  */
 
 class Enemy extends Character {
-  constructor(xPos= -50, yPos = -23, speed = 6){
+  constructor(xPos= -50, yPos = -23, speed = 4){
     super();
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
     this.xPos = xPos;
     this.yPos = yPos;
   }
-
+  // Randomizes the enemy's characteristics
   randomize(){
-            this.speed = this.speed * getRandomInt(1, 4);
-            this.xPos = this.xPos - getRandomInt(-10, -1) * 100;
-            this.yPos = this.yPos + getRandomInt(0, 3) * 83;
-            console.log(`x: ${this.xPos} and y:${this.yPos}`);
+    this.speed = this.speed * getRandomInt(1, 3);
+    this.xPos = this.xPos - getRandomInt(-10, -1) * 100;
+    this.yPos = this.yPos + getRandomInt(0, 3) * 83;
+  }
 
-          }
-
-
+  // Moves the enemy
   update(dt){
     this.xPos += this.speed;
   }
 
+  /*
+   * Checks if the enemy reaches the end of its lane
+   * Deletes the enemy from the array of enemies
+   * This function is called with for all enemies at each update() of main()
+  */
+  checkEndOfRunway(enemy, index) {
+    if(enemy.xPos > 505){
+      allEnemies.splice(index, 1);
+    }
+  }
 }
 
+/*
+*************** END OF CLASS: Enemy ***************
+*/
+
+/*
+ *******************************************
+ *************** Player Sprites ************
+ *******************************************
+*/
 const playerSprites = [
   'images/char-boy.png',
   'images/char-cat-girl.png',
   'images/char-horn-girl.png',
   'images/char-pink-girl.png',
   'images/char-princess.girl.png'];
+
+// *****************************************
 
   /*
    * TODO: Get input: let player choose character sprite
@@ -114,22 +166,13 @@ const playerSprites = [
 
 
 const player = new Player(playerSprites[0]);
+const game = new Game();
 
-/*
- * TODO:  Enemy generator algorithm
- *        setTimeout(function(){
- *
- *        }, )
- */
+game.init();
 
-let allEnemies = [],
-    numEnemies = 5;
 
-for(let i = 0; i <= numEnemies; i++) {
-  let enemy = new Enemy();
-  enemy.randomize();
-  allEnemies.push(enemy);
-}
+
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
