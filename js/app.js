@@ -6,7 +6,7 @@
  * Front End Developer Nanodegree (FEND) Project
  ******************************** by Can Sürmeli
  *
-
+ * 
 */
 
 'use strict'
@@ -16,19 +16,17 @@
  */
 var allEnemies = [];
 
-/**********************************
- *********** Game Class ***********
- **********************************
+/******************************************************************
+ *****************************        *****************************
+ **************************  Game Class  **************************
+ *****************************        *****************************
+ ******************************************************************
  */
 
 class Game{
   constructor(){
-
     // There is nothing here needed at this point of development
-
   }
-
-
   // Generates a single enemy with random position and speed
   // and pushes the instance of the enemy into the allEnemies array
   enemyGenerator(){
@@ -44,11 +42,13 @@ class Game{
     }, 500);
   }
 
+  // stops the stream and cleans
   stopBugStream(){
     clearInterval(this.bugger);
     allEnemies = [];
   }
 
+  // checks for collisions, called by engine update() function
   checkCollisions(xPlayerPos, lane){
     allEnemies.forEach(function(enemy){
       if  (enemy.lane == player.lane) {
@@ -59,12 +59,14 @@ class Game{
     })
   }
 
+  // initializes the game
   init() {
     allEnemies = [];
     player = new Player();
     this.bugStream();
   }
 
+  // the modal to display when player wins
   displayModal(){
     console.log('called')
     ctx.fillStyle = 'rgba(0,0,0,0.7)';
@@ -75,21 +77,20 @@ class Game{
     ctx.fillText("You WIN",252,180);
     ctx.fillText('Press "R" to restart.',252,230);
   }
+
+  // things to do when player wins
   playerWin(){
       this.stopBugStream();
       this.displayModal();
   }
+
+// ******************** End of class: GAME ********************
+
 }
 
-/*
-*************** END OF CLASS: Character ***************
-*/
-
-/***************************************
- *********** Character Class ***********
- ***************************************
- *
- *  This is the main class which other entities extends.
+/***********************************************************************
+ **************************  Character Class  **************************
+ ***********************************************************************
  */
 
 class Character {
@@ -104,16 +105,11 @@ class Character {
     }
 
   };
-  /*
-  *************** END OF CLASS: Character ***************
-  */
 
-
-
-/************************************
- *********** Player Class ***********
- ************************************
- */
+  /**********************************************************************
+   ***************************  Player Class  ***************************
+   **********************************************************************
+   */
 
 class Player extends Character {
   constructor(sprite){
@@ -128,10 +124,6 @@ class Player extends Character {
     this.xPos = 200;
     this.yPos = 404;
     this.sprite = playerSprites[0];
-    this.lane = Math.ceil(this.yPos / 83);
-  }
-
-  findMyLane(){
     this.lane = Math.ceil(this.yPos / 83);
   }
 
@@ -160,25 +152,26 @@ class Player extends Character {
         }
         break;
     }
-    console.log(this.lane);
   }
-
+  // updates sprites current lane
+  findMyLane(){
+    this.lane = Math.ceil(this.yPos / 83);
+  }
   // Resets Player's position after collision
   resets(){
     this.xPos = 200;
     this.yPos = 404;
     this.findMyLane();
   }
+
+  // ******************** End of class: GAME ********************
+
 }
-/*
-*************** END OF CLASS: Player ***************
-*/
-
 
 /*
- ***********************************
- *********** Enemy Class ***********
- ***********************************
+ *******************************************************************
+ *************************** Enemy Class ***************************
+ *******************************************************************
  */
 
 class Enemy extends Character {
@@ -213,19 +206,21 @@ class Enemy extends Character {
       allEnemies.splice(index, 1);
     }
   }
+
+  // ******************** End of class: GAME ********************
+
 }
 
 /*
-*************** END OF CLASS: Enemy ***************
+*************************** END OF CLASSES ***************************
 */
 
 
-
-  /*
-   * TODO: Get input: let player choose character sprite
-   * and then create player obj. with that input.
-   */
-
+/*
+**********************************************************************
+  Main Program
+**********************************************************************
+ */
 
 let player;
 const game = new Game();
