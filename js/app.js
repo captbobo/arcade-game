@@ -44,6 +44,11 @@ class Game{
     }, 500);
   }
 
+  stopBugStream(){
+    clearInterval(this.bugger);
+    allEnemies = [];
+  }
+
   checkCollisions(xPlayerPos, lane){
     allEnemies.forEach(function(enemy){
       if  (enemy.lane == player.lane) {
@@ -55,11 +60,30 @@ class Game{
   }
 
   init() {
+    allEnemies = [];
+    player = new Player();
     this.bugStream();
   }
 
+  displayModal(){
+    console.log('called')
+    ctx.fillStyle = 'rgba(0,0,0,0.7)';
+    ctx.fillRect(20,80,465,475);
+    ctx.fillStyle = 'white';
+    ctx.font = '35px arial'
+    ctx.textAlign ='center';
+    ctx.fillText("You WIN",252,180);
+    ctx.fillText('Press "R" to restart.',252,230);
+  }
+  playerWin(){
+      this.stopBugStream();
+      this.displayModal();
+  }
 }
 
+/*
+*************** END OF CLASS: Character ***************
+*/
 
 /***************************************
  *********** Character Class ***********
@@ -136,6 +160,7 @@ class Player extends Character {
         }
         break;
     }
+    console.log(this.lane);
   }
 
   // Resets Player's position after collision
@@ -202,7 +227,7 @@ class Enemy extends Character {
    */
 
 
-const player = new Player();
+let player;
 const game = new Game();
 
 game.init();
@@ -214,9 +239,14 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        82: 'restart'
     };
     player.handleInput(allowedKeys[e.keyCode]);
+    if (allowedKeys[e.keyCode] == 'restart'){
+      console.log('r');
+      game.init();
+    }
 });
 
 // Random integer generator: [min, max)

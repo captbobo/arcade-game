@@ -155,6 +155,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+
+        if(player.lane == 0){
+          game.playerWin();
+        }
     }
 
     /* This function does nothing but it could have been a good place to
