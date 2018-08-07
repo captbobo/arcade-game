@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        game.checkCollisions(player.xPos, player.lane);
     }
 
     /* This is called by the update function and loops through all of the
@@ -92,7 +92,7 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy, index) {
             enemy.update(dt);
-            enemy.checkEndOfRunway(enemy, index)
+            enemy.checkEndOfRunway(enemy, index);
         });
         player.update();
     }
