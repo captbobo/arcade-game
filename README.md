@@ -10,8 +10,17 @@ Don't let the bugs touch you, or you'll have to start over.
 
 You can use arrows on the keyboard to move.
 
+### Reset/Restart
+
 When you get to the watery tiles, you can restart by pressing R on your keyboard.
 
 Pressing R at any moment will reset the game.
+
+
+
+### How to load
+
+Load index.html in your favourite browser. 
+
 
 Have fun!
